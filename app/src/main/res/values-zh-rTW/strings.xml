@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 繁體中文（台灣）。與應用內 ZhHant 轉換層同一套用語口徑。 -->
+<resources>
+    <string name="app_name">BodyCast</string>
+    <string name="privacy_policy_title">資料邊界</string>
+
+    <string name="widget_description">一眼看到今天的身體天氣</string>
+    <string name="widget_default_kind">今天的身體天氣</string>
+    <string name="widget_default_headline">開啟應用程式看一眼，它不評價，也不催你。</string>
+    <string name="widget_no_data_title">還沒有讀到資料</string>
+    <string name="widget_no_data_body">連上手環，或者用手動校準——手動校準的優先權永遠高於裝置讀數。</string>
+    <string name="widget_action_prefix">今天可以先做這一件：%1$s</string>
+    <string name="widget_focus_prefix">今天先補：%1$s</string>
+    <string name="widget_eat_button">今天吃什麼</string>
+    <string name="widget_stamp">%1$s 更新</string>
+    <string name="widget_stamp_demo">%1$s 更新 · 示範資料</string>
+    <string name="widget_strip_description">一行看到今天的身體天氣</string>
+    <string name="widget_signals_description">一眼看到四個信號</string>
+    <string name="widget_signals_title">今天 · 四個信號</string>
+    <string name="widget_signals_title_default">信號</string>
+    <string name="widget_signals_m0">恢復雲量</string>
+    <string name="widget_signals_m1">壓力風速</string>
+    <string name="widget_signals_m2">能量濕度</string>
+    <string name="widget_signals_m3">睡眠雲層</string>
+    <string name="widget_action_title">今日微行動</string>
+    <string name="widget_action_minutes">%1$s · %2$d 分鐘</string>
+    <string name="widget_action_description">一屏一件今天能做的小事</string>
+    <string name="widget_focus_title">今天先補</string>
+    <string name="widget_focus_hint">去找含%1$s的食物</string>
+    <string name="widget_focus_description">一眼看到今天先補什麼元素</string>
+</resources>

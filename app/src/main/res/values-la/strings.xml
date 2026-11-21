@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      拉丁文资源。10 条必须**全部**给出：app/build.gradle 里是 `lint { abortOnError true }`，
+      默认的 MissingTranslation 检查会让 release 构建直接失败。
+      应用名保持 BodyCast。用词口径同 [BodyCastText]：简化的技术拉丁，短标签、固定短语，
+      名词主格单数，句子用祈使句或直陈式，不做变格绕弯。
+    -->
+    <string name="app_name">BodyCast</string>
+    <string name="privacy_policy_title">Fines datorum</string>
+
+    <!-- 桌面小组件。用词延续播报口吻，不出现分数、卡路里、体重。 -->
+    <string name="widget_description">Caelum corporis hodie uno aspectu</string>
+    <string name="widget_default_kind">Caelum corporis hodie</string>
+    <string name="widget_default_headline">Aperi applicationem et aspice. Non iudicat, non urget.</string>
+    <string name="widget_no_data_title">Nihil adhuc lectum</string>
+    <string name="widget_no_data_body">Armillam coniunge aut calibratione manuali utere — ea semper mensuras instrumenti praecedit.</string>
+    <string name="widget_action_prefix">Hodie unum satis: %1$s</string>
+    <string name="widget_focus_prefix">Hodie primum cape: %1$s</string>
+    <string name="widget_eat_button">Quid edam hodie</string>
+    <string name="widget_stamp">%1$s renovatum</string>
+    <string name="widget_stamp_demo">%1$s renovatum · data demonstrationis</string>
+<string name="widget_strip_description">Caelum corporis hodie uno intuitu</string>
+<string name="widget_signals_description">Quattuor signa uno intuitu</string>
+<string name="widget_signals_title">Hodie - quattuor signa</string>
+<string name="widget_signals_title_default">Signum</string>
+<string name="widget_signals_m0">Nubes</string>
+<string name="widget_signals_m1">Ventus</string>
+<string name="widget_signals_m2">Umor</string>
+<string name="widget_signals_m3">Somnus</string>
+    <string name="widget_action_title">Parva actio hodierna</string>
+    <string name="widget_action_minutes">%1$s · %2$d minuta</string>
+    <string name="widget_action_description">Una res parva hodie facienda</string>
+    <string name="widget_focus_title">Hodie incipe a</string>
+    <string name="widget_focus_hint">Cibos cum %1$s quaere</string>
+    <string name="widget_focus_description">Quod hodie suppleas uno intuitu</string>
+</resources>

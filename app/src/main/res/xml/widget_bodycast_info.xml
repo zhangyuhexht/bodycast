@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  AppWidget 配置：2×2 起（最小 110×110dp），可拉到 4×2。
+  刷新间隔用系统允许的最小值 30 分钟；应用内算完天气时也会主动推一次，
+  见 BodyCastWidgetProvider.updateAll()。
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="110dp"
+    android:minHeight="110dp"
+    android:targetCellWidth="2"
+    android:targetCellHeight="2"
+    android:maxResizeWidth="320dp"
+    android:maxResizeHeight="160dp"
+    android:updatePeriodMillis="1800000"
+    android:initialLayout="@layout/widget_bodycast"
+    android:previewLayout="@layout/widget_bodycast"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"
+    android:description="@string/widget_description" />

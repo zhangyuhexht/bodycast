@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BodyCast</string>
+    <string name="privacy_policy_title">Límites de datos</string>
+
+    <!-- 桌面小组件 -->
+    <string name="widget_description">El tiempo corporal de hoy de un vistazo</string>
+    <string name="widget_default_kind">El tiempo corporal de hoy</string>
+    <string name="widget_default_headline">Abre la app para mirar. No juzga, ni te apura.</string>
+    <string name="widget_no_data_title">Aún sin datos</string>
+    <string name="widget_no_data_body">Conecta una pulsera, o usa la calibración manual — que siempre tiene prioridad sobre las lecturas del dispositivo.</string>
+    <string name="widget_action_prefix">Hoy puedes hacer esto: %1$s</string>
+    <string name="widget_focus_prefix">Hoy, empieza por: %1$s</string>
+    <string name="widget_eat_button">Qué comer hoy</string>
+    <string name="widget_stamp">Actualizado %1$s</string>
+    <string name="widget_stamp_demo">Actualizado %1$s · datos de demostración</string>
+    <string name="widget_strip_description">El tiempo de hoy en una línea</string>
+    <string name="widget_signals_description">Cuatro señales de un vistazo</string>
+    <string name="widget_signals_title">Hoy · cuatro señales</string>
+    <string name="widget_signals_title_default">Señal</string>
+    <string name="widget_signals_m0">Nubes de recuperación</string>
+    <string name="widget_signals_m1">Viento de presión</string>
+    <string name="widget_signals_m2">Humedad de energía</string>
+    <string name="widget_signals_m3">Nubes de sueño</string>
+    <string name="widget_action_title">La pequeña acción de hoy</string>
+    <string name="widget_action_minutes">%1$s · %2$d min</string>
+    <string name="widget_action_description">Una cosa pequeña que puedes hacer hoy</string>
+    <string name="widget_focus_title">Hoy, empieza por</string>
+    <string name="widget_focus_hint">Busca alimentos con %1$s</string>
+    <string name="widget_focus_description">Ver qué completar hoy</string>
+</resources>

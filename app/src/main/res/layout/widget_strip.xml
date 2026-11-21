@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  小组件 2×1「今日天气条」（22.35.0）：一行看今天。
+  层次：天气色强调条 → 天气词（染色）→ 一句结论。
+  只用 RemoteViews 白名单控件（FrameLayout / LinearLayout / TextView）。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_strip_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_background"
+    android:padding="12dp">
+
+    <FrameLayout
+        android:id="@+id/widget_accent_bar"
+        android:layout_width="32dp"
+        android:layout_height="3dp"
+        android:background="@drawable/widget_accent_bar" />
+
+    <TextView
+        android:id="@+id/widget_strip_kind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/widget_ink"
+        android:text="@string/widget_default_kind" />
+
+    <TextView
+        android:id="@+id/widget_strip_headline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="11sp"
+        android:lineSpacingExtra="2dp"
+        android:textColor="@color/widget_muted"
+        android:text="@string/widget_default_headline" />
+</LinearLayout>

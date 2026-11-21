@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        BodyCast 身体气象台。
+
+        权限策略：**只读、按需、最小化**。
+        22.24.0 起新增可选通道「小米账号（云同步）」：用户主动连接自己的小米账号之后，
+        应用会去小米的服务器只读地把六类读数取回来。**这条通道默认关闭**——
+        没连过账号时应用一个字节都不往外发。
+        因此这里申请 INTERNET（联网能力）与 ACCESS_NETWORK_STATE（判断有没有网），
+        除此之外没有别的网络相关权限：没有后台同步、没有推送、没有任何上传接口。
+
+        22.0.0 起申请 POST_NOTIFICATIONS（Android 13+ 的运行时通知权限）与
+        RECEIVE_BOOT_COMPLETED（开机后把提醒闹钟重新排上）。
+        通知权限仍然**只在用户进「通知与提醒」页并主动点申请时才弹**，
+        启动时不弹、不骚扰；用户拒绝就静默降级，应用其它功能不受影响。
+    -->
+
+    <!--
+        INTERNET：只给「小米账号（云同步）」这条可选通道用。默认关闭，
+        用户主动连接账号并点「立即同步」时才会真正发出请求。
+    -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 判断当前有没有网络，好在同步失败时给一句准确的话，而不是笼统的「失败了」。 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Health Connect 读取权限。六项，对应设置页列出的「已授权类型」。 -->
+    <uses-permission android:name="android.permission.health.READ_STEPS" />
+    <uses-permission android:name="android.permission.health.READ_SLEEP" />
+    <uses-permission android:name="android.permission.health.READ_RESTING_HEART_RATE" />
+    <uses-permission android:name="android.permission.health.READ_HEART_RATE_VARIABILITY" />
+    <uses-permission android:name="android.permission.health.READ_OXYGEN_SATURATION" />
+    <uses-permission android:name="android.permission.health.READ_EXERCISE" />
+    <!--
+        动态心率（22.22.0）：厂商常常只写瞬时心率序列、不写静息心率记录，
+        这一项用来给「静息心率」做兜底估算（取 48 小时里最低那一档）。
+        仍然**不申请**后台读取与 30 天前历史读取——本轮不做后台同步与长期趋势。
+    -->
+    <uses-permission android:name="android.permission.health.READ_HEART_RATE" />
+
+    <!--
+        Health Connect 写入权限（22.42.0，写入桥）。**可选、默认关闭**：
+        用户在「数据与同步」里打开「把读数写入系统健康服务」并同意授权后，
+        才把本机已同步的聚合读数写进系统健康服务（睡眠 / 运动只在有真实
+        起止时间时写）。没打开开关时一个字节都不写。
+    -->
+    <uses-permission android:name="android.permission.health.WRITE_STEPS" />
+    <uses-permission android:name="android.permission.health.WRITE_SLEEP" />
+    <uses-permission android:name="android.permission.health.WRITE_RESTING_HEART_RATE" />
+    <uses-permission android:name="android.permission.health.WRITE_HEART_RATE_VARIABILITY" />
+    <uses-permission android:name="android.permission.health.WRITE_OXYGEN_SATURATION" />
+    <uses-permission android:name="android.permission.health.WRITE_EXERCISE" />
+
+    <!-- 通知与提醒（22.0.0）：发提醒 + 开机重排闹钟。不联网，也不上传。 -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!--
+        Android 11 起包可见性受过滤：没在这里声明的包，`getInstalledApplications`
+        根本不会返回，按应用名扫描也扫不到。这里是「小米运动健康点了打不开」
+        最直接的修法之一——**国行小米运动健康的包名是 com.mi.health**。
+        不申请 QUERY_ALL_PACKAGES（那是受限权限，本应用只需要知道这几家）。
+    -->
+    <queries>
+        <package android:name="com.google.android.apps.healthdata" />
+        <!-- 小米：国行 → 国际版 → 老版 -->
+        <package android:name="com.mi.health" />
+        <package android:name="com.xiaomi.wearable" />
+        <package android:name="com.xiaomi.hm.health" />
+        <!-- 华为 / 荣耀 -->
+        <package android:name="com.huawei.health" />
+        <package android:name="com.hihonor.health" />
+        <!-- Zepp / Amazfit -->
+        <package android:name="com.huami.watch.hmwatchmanager" />
+        <!-- 三星健康（引导里会给它的路径，见方案 §3.8） -->
+        <package android:name="com.sec.android.app.shealth" />
+        <!-- 应用商店详情页：market:// 也要能被解析，否则跳商店会「点了没反应」 -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="market" />
+        </intent>
+    </queries>
+
+    <application
+        android:theme="@style/Theme.Pocket"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:allowBackup="false"
+        android:localeConfig="@xml/locales_config"
+        android:enableOnBackInvokedCallback="true"
+        android:supportsRtl="true">
+
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
+
+        <!--
+            锁竖屏：底部玻璃栏的排版是按手机竖屏设计的，横屏下四个 tab 会被拉得很散。
+            targetSdk 36 起，系统在宽度 ≥ 600dp 的大屏设备上会忽略这个限制，
+            所以平板 / 折叠屏仍然可以自由旋转，只在手机上生效。
+        -->
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!--
+                分享面板接单（22.24.0，方案 B §3.1）。
+                厂商 App 的「导出 / 分享」把文件交给系统分享面板，用户在里面点 BodyCast
+                就能把文件交给本应用解析——这是「点几下最少」的那一条路。
+                **不需要任何权限**：uri 由系统授权、只读一次，SAF 与 ACTION_SEND
+                都不需要 READ_EXTERNAL_STORAGE。
+            -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/*" />
+                <data android:mimeType="application/*" />
+            </intent-filter>
+        </activity>
+
+        <!--
+            小米账号登录页（22.24.0）：一个只装 WebView 的界面，打开的是
+            `account.xiaomi.com` 的官方登录页。用户在那里登录，
+            应用只从 Cookie 里取令牌；密码不经过本应用。
+            不导出：只有本应用能拉起它。
+        -->
+        <!-- 22.41.0：adjustPan——键盘弹出时不再压缩 WebView。
+             adjustResize 的缩放会触发页面重排，安全键盘（尤其小米的密码键盘）
+             会在重排中掉焦点、弹出即收；登录表单在页面上方，pan 完全够用。 -->
+        <activity
+            android:name=".ui.MiLoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <!--
+            提醒到点：弹一条温柔的通知（身体来信 / 微行动 / 看一眼天气），
+            响过之后由它自己排下一次。不导出，只接自己的闹钟。
+        -->
+        <receiver
+            android:name=".notify.ReminderReceiver"
+            android:exported="false" />
+
+        <!-- 22.38.0：天气明信片出图后的系统分享（只读缓存目录，随时清）。 -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- 桌面小组件：今天是什么身体天气（22.35.0 起三种卡并存）。 -->
+        <receiver
+            android:name=".widget.BodyCastWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_bodycast_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.BodyCastStripWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_strip_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.BodyCastSignalsWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_signals_info" />
+        </receiver>
+
+        <!-- 22.42.0：新增 2×1「今日微行动」「今天先补」两种小卡。 -->
+        <receiver
+            android:name=".widget.BodyCastActionWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_action_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.BodyCastFocusWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_focus_info" />
+        </receiver>
+
+        <!-- 开机 / 应用更新后，把提醒闹钟重新排上（重启会清空闹钟）。 -->
+        <receiver
+            android:name=".notify.BootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+        <!--
+            Android 14 起，Health Connect 在授权前会先向应用索取隐私政策说明。
+            这个 Activity 只是把「数据只存本机、不上传」这件事讲清楚。
+        -->
+        <activity
+            android:name=".ui.PrivacyPolicyActivity"
+            android:exported="true"
+            android:label="@string/privacy_policy_title">
+            <intent-filter>
+                <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
+            </intent-filter>
+        </activity>
+
+        <!--
+            Android 14 起 Health Connect 走「隐私权政策对话框」这一步时，
+            系统按 action `android.intent.action.VIEW_PERMISSION_USAGE` +
+            category `android.intent.category.HEALTH_PERMISSIONS` 找入口，
+            **不再只认上面那个 ACTION_SHOW_PERMISSIONS_RATIONALE**。
+            缺了它，部分机型上授权流程会说「应用没有提供隐私说明」。
+            官方模板（健康数据共享指南 → 开始使用 → 显示应用的隐私权政策对话框）
+            就是这个 activity-alias + START_VIEW_PERMISSION_USAGE 的组合。
+        -->
+        <activity-alias
+            android:name="ViewPermissionUsageActivity"
+            android:exported="true"
+            android:targetActivity=".ui.PrivacyPolicyActivity"
+            android:permission="android.permission.START_VIEW_PERMISSION_USAGE">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW_PERMISSION_USAGE" />
+                <category android:name="android.intent.category.HEALTH_PERMISSIONS" />
+            </intent-filter>
+        </activity-alias>
+    </application>
+</manifest>

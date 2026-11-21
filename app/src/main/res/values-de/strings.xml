@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BodyCast</string>
+    <string name="privacy_policy_title">Datenbegrenzung</string>
+
+    <!-- Desktop-Widgets -->
+    <string name="widget_description">Das heutige Körperwetter auf einen Blick</string>
+    <string name="widget_default_kind">Das heutige Körperwetter</string>
+    <string name="widget_default_headline">App zum Anschauen öffnen. Sie bewertet nicht und drängt nicht.</string>
+    <string name="widget_no_data_title">Noch keine Daten</string>
+    <string name="widget_no_data_body">Armband verbinden oder manuell kalibrieren – das hat immer Vorrang vor Geräte-Werten.</string>
+    <string name="widget_action_prefix">Heute kannst du das tun: %1$s</string>
+    <string name="widget_focus_prefix">Heute beginnen mit: %1$s</string>
+    <string name="widget_eat_button">Was heute essen</string>
+    <string name="widget_stamp">Aktualisiert %1$s</string>
+    <string name="widget_stamp_demo">Aktualisiert %1$s · Demo-Daten</string>
+    <string name="widget_strip_description">Das heutige Wetter in einer Zeile</string>
+    <string name="widget_signals_description">Vier Signale auf einen Blick</string>
+    <string name="widget_signals_title">Heute · vier Signale</string>
+    <string name="widget_signals_title_default">Signal</string>
+    <string name="widget_signals_m0">Erholungswolken</string>
+    <string name="widget_signals_m1">Druckwind</string>
+    <string name="widget_signals_m2">Energiefeuchte</string>
+    <string name="widget_signals_m3">Schlafwolken</string>
+    <string name="widget_action_title">Die kleine Aktion von heute</string>
+    <string name="widget_action_minutes">%1$s · %2$d Min</string>
+    <string name="widget_action_description">Eine kleine Sache für heute</string>
+    <string name="widget_focus_title">Heute beginnen mit</string>
+    <string name="widget_focus_hint">Lebensmittel mit %1$s finden</string>
+    <string name="widget_focus_description">Sehen, was heute aufzufüllen ist</string>
+</resources>

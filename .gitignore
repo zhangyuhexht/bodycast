@@ -1,0 +1,42 @@
+# ---------- Android / Gradle ----------
+.gradle/
+.kotlin/
+**/build/
+outputs/
+local.properties
+*.iml
+.idea/
+.cxx/
+.externalNativeBuild/
+captures/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+*.log
+*.hprof
+
+# 签名材料（即使当前用 debug.keystore 签名也不要提交私钥）
+*.jks
+*.keystore
+*.pepk
+
+# ---------- Python 辅助脚本（tools/、tools-generation/） ----------
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ---------- 编辑器 / 操作系统 ----------
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db

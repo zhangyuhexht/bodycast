@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 小组件「今天先补」行的胶囊底：与主界面玻璃芯片同观感（描边 + 极淡填充）。
+     颜色走资源，深浅色两套（22.42.0）。 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/widget_chip_bg" />
+    <corners android:radius="18dp" />
+    <stroke android:width="1dp" android:color="@color/widget_chip_stroke" />
+</shape>

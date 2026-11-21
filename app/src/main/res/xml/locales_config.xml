@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 只声明实际支持的语言：简体中文、英语、日语、拉丁文（Latina）。 -->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="zh-Hans" />
+    <locale android:name="en" />
+    <locale android:name="ja" />
+    <locale android:name="la" />
+</locale-config>

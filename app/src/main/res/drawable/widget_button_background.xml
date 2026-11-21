@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 小组件「今天吃什么」按钮底：与主界面主按钮同色（强调绿）+ 胶囊圆角。
+     颜色走资源（22.42.0），深浅一致。 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/widget_accent" />
+    <corners android:radius="20dp" />
+</shape>

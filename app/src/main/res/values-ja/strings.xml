@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      日语资源。10 条必须**全部**给出：app/build.gradle 里是 `lint { abortOnError true }`，
+      默认的 MissingTranslation 检查会让 release 构建直接失败。
+      应用名保持 BodyCast，不带后缀（11.0.0 时期的「BodyCast 体調気象台」已废弃）。
+    -->
+    <string name="app_name">BodyCast</string>
+    <string name="privacy_policy_title">データの範囲</string>
+
+    <!-- 桌面小组件。用词延续播报口吻，不出现分数、卡路里、体重。 -->
+    <string name="widget_description">今日の体調がひと目でわかります</string>
+    <string name="widget_default_kind">今日の体調</string>
+    <string name="widget_default_headline">アプリを開いてひと目見るだけで大丈夫。評価も催促もしません。</string>
+    <string name="widget_no_data_title">まだデータを読み取れていません</string>
+    <string name="widget_no_data_body">ウェアラブルをつなぐか、手動調整をお使いください。手動調整は常にデバイスの測定値より優先されます。</string>
+    <string name="widget_action_prefix">今日はこれを一つ：%1$s</string>
+    <string name="widget_focus_prefix">今日まず補う：%1$s</string>
+    <string name="widget_eat_button">今日の食事</string>
+    <string name="widget_stamp">%1$s 更新</string>
+    <string name="widget_stamp_demo">%1$s 更新 · デモデータ</string>
+<string name="widget_strip_description">今日の体調をひと目で</string>
+<string name="widget_signals_description">四つの信号をひと目で</string>
+<string name="widget_signals_title">今日・四つの信号</string>
+<string name="widget_signals_title_default">信号</string>
+<string name="widget_signals_m0">回復の雲</string>
+<string name="widget_signals_m1">緊張の風</string>
+<string name="widget_signals_m2">元気の湿度</string>
+<string name="widget_signals_m3">睡眠の雲</string>
+    <string name="widget_action_title">今日の小さな行動</string>
+    <string name="widget_action_minutes">%1$s · %2$d分</string>
+    <string name="widget_action_description">今日できる小さなことひとつ</string>
+    <string name="widget_focus_title">今日はまず</string>
+    <string name="widget_focus_hint">%1$sを含む食材を探す</string>
+    <string name="widget_focus_description">今日補う栄養素をひと目で</string>
+</resources>

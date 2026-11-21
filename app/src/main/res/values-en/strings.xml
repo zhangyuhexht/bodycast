@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">BodyCast</string>
+<string name="privacy_policy_title">Data boundaries</string>
+<string name="widget_description">Body weather at a glance</string>
+<string name="widget_default_kind">Body weather today</string>
+<string name="widget_default_headline">Open the app for a look. It does not judge and it will not rush you.</string>
+<string name="widget_no_data_title">Nothing read yet</string>
+<string name="widget_no_data_body">Connect a wearable, or just calibrate by hand - manual calibration always outranks device readings.</string>
+<string name="widget_action_prefix">One small thing for today: %1$s</string>
+    <string name="widget_focus_prefix">Today, start with: %1$s</string>
+    <string name="widget_eat_button">What to eat today</string>
+<string name="widget_stamp">Updated %1$s</string>
+<string name="widget_stamp_demo">Updated %1$s - demo data</string>
+<string name="widget_strip_description">Today\'s body weather in one line</string>
+<string name="widget_signals_description">Four signals at a glance</string>
+<string name="widget_signals_title">Today - four signals</string>
+<string name="widget_signals_title_default">Signal</string>
+<string name="widget_signals_m0">Recovery clouds</string>
+<string name="widget_signals_m1">Pressure wind</string>
+<string name="widget_signals_m2">Energy humidity</string>
+<string name="widget_signals_m3">Sleep clouds</string>
+    <string name="widget_action_title">Today\'s tiny action</string>
+    <string name="widget_action_minutes">%1$s · %2$d min</string>
+    <string name="widget_action_description">One small thing you can do today</string>
+    <string name="widget_focus_title">Today, start with</string>
+    <string name="widget_focus_hint">Find foods with %1$s</string>
+    <string name="widget_focus_description">See what to top up today</string>
+</resources>

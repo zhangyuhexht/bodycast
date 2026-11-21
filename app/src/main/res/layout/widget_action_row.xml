@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  小组件 2×1「今日微行动」（22.42.0）：一屏一件今天能做的小事。
+  层次：强调条 → 小标题 → 小事文案（最多 2 行）。
+  只用 RemoteViews 白名单控件；颜色走资源（深浅两套）。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_action_row_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_background"
+    android:padding="12dp">
+
+    <FrameLayout
+        android:id="@+id/widget_accent_bar"
+        android:layout_width="32dp"
+        android:layout_height="3dp"
+        android:background="@drawable/widget_accent_bar" />
+
+    <TextView
+        android:id="@+id/widget_action_row_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="11sp"
+        android:textColor="@color/widget_label"
+        android:text="@string/widget_action_title" />
+
+    <TextView
+        android:id="@+id/widget_action_row_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="14sp"
+        android:lineSpacingExtra="2dp"
+        android:textStyle="bold"
+        android:textColor="@color/widget_ink"
+        android:text="@string/widget_default_headline" />
+</LinearLayout>

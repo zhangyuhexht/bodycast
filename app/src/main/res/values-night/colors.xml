@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 小组件**深色**配色（与 22.33.0 起的观感一致：深墨绿底 + 浅字）。
+         浅色值在 values/colors.xml，系统切深浅色时桌面自动换一套。 -->
+    <color name="widget_bg">#E6121A17</color>
+    <color name="widget_stroke">#1FFFFFFF</color>
+    <color name="widget_ink">#F1F5F3</color>
+    <color name="widget_muted">#C7D2CD</color>
+    <color name="widget_label">#8FA39B</color>
+    <color name="widget_faint">#6F7C77</color>
+    <color name="widget_chip_bg">#14FFFFFF</color>
+    <color name="widget_chip_stroke">#22FFFFFF</color>
+    <color name="widget_accent">#3ED598</color>
+    <color name="widget_on_accent">#0B1512</color>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 小组件底板（暗）：与 widget_background.xml 同一形状，颜色写死为暗色一套。
+     22.52.0 起小组件跟**应用内**的深浅色，由 WidgetRender 按快照里的 dark 标记挑。 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#E6121A17" />
+    <corners android:radius="24dp" />
+    <stroke android:width="1dp" android:color="#1FFFFFFF" />
+</shape>

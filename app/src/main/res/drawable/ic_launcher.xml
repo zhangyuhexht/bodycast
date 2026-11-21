@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    旧式（非自适应）启动图标：用微软雅黑粗体渲染好的「BC」位图兜底。
+    位图由 .tmp/gen_icon.ps1 生成（System.Drawing + 微软雅黑），
+    字形就是系统里的微软雅黑，不是自己画的笔画。
+-->
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/ic_launcher_full"
+    android:gravity="fill" />

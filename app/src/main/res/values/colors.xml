@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 启动图标底色：和窗口底色一致，让图标在桌面上是「一块干净的深色方」 -->
+    <color name="ic_launcher_background">#0B0F0D</color>
+
+    <!-- ── 小组件配色（22.42.0 起分深浅两套；这里给**浅色**默认值）──
+         深色值在 values-night/colors.xml。小组件没有 Compose 主题可跟，
+         颜色全部走资源，系统切深浅色时桌面会自动换一套。
+         命名与主界面观感一一对应：底板 / 描边 / 主文字 / 次文字 / 时间戳。 -->
+    <color name="widget_bg">#F0F6F3</color>
+    <color name="widget_stroke">#1F000000</color>
+    <color name="widget_ink">#12211C</color>
+    <color name="widget_muted">#5A6B64</color>
+    <color name="widget_label">#6B7F77</color>
+    <color name="widget_faint">#7A8A83</color>
+    <color name="widget_chip_bg">#14000000</color>
+    <color name="widget_chip_stroke">#22000000</color>
+    <!-- 强调绿两套一样：主按钮底 + 强调条兜底（运行时会按天气改色） -->
+    <color name="widget_accent">#3ED598</color>
+    <color name="widget_on_accent">#0B1512</color>
+</resources>

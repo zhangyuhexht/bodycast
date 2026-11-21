@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 天气明信片只写在缓存目录，这里只放行这一个子目录。 -->
+<paths>
+    <cache-path name="postcards" path="postcards/" />
+    <cache-path name="exports" path="exports/" />
+</paths>

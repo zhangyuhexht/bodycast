@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        深色是默认形态。玻璃要在深底上才看得出折射，
+        所以这里连窗口底色都设成深色，避免冷启动时闪一下白屏。
+    -->
+    <style name="Theme.Pocket" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">#3ED598</item>
+        <item name="colorOnPrimary">#04231A</item>
+        <item name="colorPrimaryContainer">#1F8A5E</item>
+        <item name="colorOnPrimaryContainer">#E9FBF3</item>
+        <item name="colorSecondary">#93A19C</item>
+        <item name="colorSecondaryContainer">#1B2622</item>
+        <item name="colorSurface">#0A0F0D</item>
+        <item name="colorOnSurface">#F1F5F3</item>
+        <item name="colorSurfaceVariant">#16201C</item>
+        <item name="colorOnSurfaceVariant">#93A19C</item>
+        <item name="android:colorBackground">#0A0F0D</item>
+        <item name="android:windowBackground">#0A0F0D</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+</resources>

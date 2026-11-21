@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  小组件 2×1「今天先补」（22.42.0）：一眼看到今天该补什么元素。
+  层次：强调条 → 小标题 → 元素名（大字）→ 去找什么食物。
+  只用 RemoteViews 白名单控件；颜色走资源（深浅两套）。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_focus_row_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_background"
+    android:padding="12dp">
+
+    <FrameLayout
+        android:id="@+id/widget_accent_bar"
+        android:layout_width="32dp"
+        android:layout_height="3dp"
+        android:background="@drawable/widget_accent_bar" />
+
+    <TextView
+        android:id="@+id/widget_focus_row_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="11sp"
+        android:textColor="@color/widget_label"
+        android:text="@string/widget_focus_title" />
+
+    <TextView
+        android:id="@+id/widget_focus_row_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/widget_ink"
+        android:text="@string/widget_default_kind" />
+
+    <TextView
+        android:id="@+id/widget_focus_row_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="11sp"
+        android:textColor="@color/widget_muted"
+        android:text="@string/widget_default_headline" />
+</LinearLayout>

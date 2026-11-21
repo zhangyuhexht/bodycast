@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BodyCast</string>
+    <string name="privacy_policy_title">数据边界</string>
+
+    <!-- 桌面小组件（22.0.0）。用词延续播报口吻，不出现分数、卡路里、体重。 -->
+    <string name="widget_description">一眼看到今天的身体天气</string>
+    <string name="widget_default_kind">今天的身体天气</string>
+    <string name="widget_default_headline">打开应用看一眼，它不评价，也不催你。</string>
+    <string name="widget_no_data_title">还没有读到数据</string>
+    <string name="widget_no_data_body">连上手环，或者用手动校准——手动校准的优先级永远高于设备读数。</string>
+    <string name="widget_action_prefix">今天可以先做这一件：%1$s</string>
+    <string name="widget_focus_prefix">今天先补：%1$s</string>
+    <string name="widget_eat_button">今天吃什么</string>
+    <string name="widget_stamp">%1$s 更新</string>
+    <string name="widget_stamp_demo">%1$s 更新 · 演示数据</string>
+    <!-- 22.35.0 新增小组件：今日天气条（2×1）与四信号（2×2）。 -->
+    <string name="widget_strip_description">一行看今天的身体天气</string>
+    <string name="widget_signals_description">一眼看到四个信号</string>
+    <string name="widget_signals_title">今天 · 四个信号</string>
+    <string name="widget_signals_title_default">信号</string>
+    <string name="widget_signals_m0">恢复云量</string>
+    <string name="widget_signals_m1">压力风速</string>
+    <string name="widget_signals_m2">能量湿度</string>
+    <string name="widget_signals_m3">睡眠云层</string>
+    <!-- 22.42.0 新增小组件：今日微行动（2×1）与今天先补（2×1）。 -->
+    <string name="widget_action_title">今日微行动</string>
+    <string name="widget_action_minutes">%1$s · %2$d 分钟</string>
+    <string name="widget_action_description">一屏一件今天能做的小事</string>
+    <string name="widget_focus_title">今天先补</string>
+    <string name="widget_focus_hint">去找含%1$s的食物</string>
+    <string name="widget_focus_description">一眼看到今天先补什么元素</string>
+</resources>

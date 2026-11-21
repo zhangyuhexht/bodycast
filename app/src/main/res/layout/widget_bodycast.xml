@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  桌面小组件（22.0.0；22.33.0 美化重排）：一眼看到今天的身体天气 + 今天先补什么 + 今日那件小事。
+  只用 RemoteViews 支持的控件；颜色写在代码里（跟随天气），这里给的是兜底观感。
+  层次：顶部天气色强调条 → 天气名 + 格言 → 今日小事 → 「今天先补」胶囊 → 「今天吃什么」主按钮 → 时间戳。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_background"
+    android:padding="12dp">
+
+    <!-- 天气色强调条：窄窄一条，颜色跟天气走，是整张卡的「脸色」。
+         用 FrameLayout 不用裸 View——RemoteViews 的视图白名单在各厂商
+         Launcher 上执行松紧不一，裸 View 在 HyperOS 上会「载入错误」。 -->
+    <FrameLayout
+        android:id="@+id/widget_accent_bar"
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:background="@drawable/widget_accent_bar" />
+
+    <TextView
+        android:id="@+id/widget_kind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/widget_ink"
+        android:text="@string/widget_default_kind" />
+
+    <TextView
+        android:id="@+id/widget_headline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="13sp"
+        android:lineSpacingExtra="3dp"
+        android:textColor="@color/widget_muted"
+        android:text="@string/widget_default_headline" />
+
+    <TextView
+        android:id="@+id/widget_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="13sp"
+        android:textColor="@color/widget_accent"
+        android:text="" />
+
+    <!-- 「今天先补」胶囊：元素名是这张卡的第二个记忆点。 -->
+    <LinearLayout
+        android:id="@+id/widget_focus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/widget_chip_background"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/widget_focus_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="@color/widget_ink"
+            android:text="" />
+    </LinearLayout>
+
+    <!-- 「今天吃什么」主按钮：唯一的大动作，点它直达食谱页并按元素筛好。
+         22.34.0：改成单个 TextView 承载文字+背景——嵌套 LinearLayout 时
+         文字节点会被 RemoteViews 度量塌成 10px 高（字被裁到看不见），
+         单 TextView 是 RemoteViews 支持最稳的形态。 -->
+    <TextView
+        android:id="@+id/widget_eat_button"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:background="@drawable/widget_button_background"
+        android:maxLines="1"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:textColor="@color/widget_on_accent"
+        android:text="@string/widget_eat_button" />
+
+    <TextView
+        android:id="@+id/widget_stamp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:maxLines="1"
+        android:textSize="11sp"
+        android:textColor="@color/widget_faint"
+        android:text="" />
+</LinearLayout>

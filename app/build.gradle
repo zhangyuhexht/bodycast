@@ -1,0 +1,123 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.compose'
+    id 'org.jetbrains.compose'
+}
+
+android {
+    namespace 'cn.pocket.toolbox'
+    compileSdk 37
+    defaultConfig {
+        applicationId 'cn.pocket.toolbox'
+        // 26 = 安卓 8.0。backdrop 库 minSdk 21 且内部按 API 级别自动降级；
+        // Health Connect 库的 minSdk 就是 26，再低装不上。
+        // 安卓 13 以下运行时自动走磨砂降级（见 glass/GlassSupport.kt）。
+        minSdk 26
+        // Android 17（API 37）：编译与目标版本统一到 37。
+        targetSdk 37
+        versionCode 88
+        versionName '22.61.0'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    signingConfigs {
+        // 用调试密钥给 release 签名，产出可以直接侧载安装的 APK。
+        // 正式上架应用商店时应替换为发布密钥。
+        sideload {
+            storeFile file("${System.getProperty('user.home')}/.android/debug.keystore")
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.sideload
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        compose true
+        // 设置页「关于」里显示版本号要读 BuildConfig.VERSION_NAME。
+        buildConfig true
+    }
+    lint { abortOnError true }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
+}
+
+// ---------------------------------------------------------------------------
+// 单元测试任务修法（22.27.0）。
+//
+// 症状：`./gradlew :app:test` 报「Could not execute test class … 」，
+// 底下是 ClassNotFoundException——连空测试都一样，测试类根本没被加载。
+//
+// 根因（逐层查到的）：Gradle 9.x 给测试 worker 传 classpath 时会写一个
+// `@argfile`（`C:\Users\…\.gradle\.tmp\gradle-worker-classpath*`），
+// 用 `PrintWriter(File)` 写出，也就是**守护进程的 file.encoding（UTF-8）**；
+// 而 Windows 的 `java` 启动器解析 @argfile 用的是**系统 ANSI 代码页（本机 GBK）**。
+// 项目目录名带中文（`安卓工具箱`），class path 里凡是落在项目下的条目
+// （kotlin-classes/debugUnitTest、classes.jar …）全被解码错位，
+// 于是测试类与被测类统统找不到。把同一份 argfile 转成 GBK 再喂给 java，
+// 8 个测试一次全过——证明就是编码错位，不是测试或依赖的问题。
+//
+// 对策：执行前把非 ASCII 的 classpath 条目换成**同一目录的 ASCII 别名**
+// （目录联接 junction，不需要管理员权限，也不复制文件）；
+// 换不了就原样保留。只在 Windows 且确实存在非 ASCII 条目时生效。
+// ---------------------------------------------------------------------------
+def asciiAlias = { File f ->
+    def asciiOnly = { String s -> s.bytes.every { ((int) it & 0xFF) < 128 } }
+    if (asciiOnly(f.absolutePath)) return f
+    def root = new File(gradle.gradleUserHomeDir, 'bodycast-test-cp')
+    root.mkdirs()
+    def link = new File(root, Integer.toHexString(f.absolutePath.toLowerCase().hashCode()))
+    def target = f.isDirectory() ? f : f.parentFile
+    // 联接的目标必须先存在，否则 mklink 直接失败（比如 Java 测试输出目录还没生成）。
+    target.mkdirs()
+    if (!link.exists()) {
+        def mklink = new ProcessBuilder('cmd', '/c', 'mklink', '/J', link.absolutePath, target.absolutePath)
+        mklink.redirectErrorStream(true)
+        def proc = mklink.start()
+        proc.inputStream.bytes
+        proc.waitFor()
+    }
+    if (!link.exists()) return f
+    f.isDirectory() ? link : new File(link, f.name)
+}
+
+tasks.withType(Test).configureEach { t ->
+    t.doFirst {
+        if (!System.getProperty('os.name').toLowerCase().contains('windows')) return
+        t.classpath = files(t.classpath.files.collect { asciiAlias(it) })
+    }
+}
+
+dependencies {
+    implementation compose.runtime
+    implementation compose.foundation
+    implementation compose.ui
+    implementation compose.material3
+    implementation 'androidx.activity:activity-compose:1.13.0'
+    implementation 'io.github.kyant0:backdrop-android:2.0.1'
+    implementation 'io.github.kyant0:shapes-android:1.2.1'
+    // appcompat / material 只为了让 XML 主题继承 Theme.Material3.Dark.NoActionBar，
+    // 并给窗口一个深色底（避免冷启动闪白）。UI 本身全部是 Compose。
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.core:core:1.13.1'
+    // 穿戴设备数据通道。小米 / 华为的手环同步到 Health Connect 后即可读取，
+    // 不需要为每个品牌单独适配。
+    implementation 'androidx.health.connect:connect-client:1.1.0-alpha10'
+    testImplementation 'junit:junit:4.13.2'
+    // 单测用真实 org.json（Android 桩把 put/get 全变成 not mocked）；只进测试类路径，不进 APK。
+    testImplementation 'org.json:json:20240303'
+}
